@@ -26,7 +26,7 @@ harbor_behind_proxy: no
 # If you are running behind a proxy and the proxy terminates SSL, you need to set this to "https"
 # as this dictates the *external* access to the registry.
 # This only takes effect if "harbor_behind_proxy" is True.
-harbor_registry_realm_protocol: "http"
+harbor_registry_realm_protocol: "https"
 
 # Used in the docker compose file
 harbor_exposed_http_port: 80
@@ -41,7 +41,7 @@ harbor_redis_host: redis
 harbor_hostname: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 harbor_datadir: "/data"
 harbor_ssl_self_days: 180
-harbor_ssl_self_subject: "/O=Harbor Server/OU=Self signed/CN=test"
+harbor_ssl_self_subject: "/O=Harbor Server/OU=Self signed/CN={{ harbor_hostname }}"
 harbor_api_port: "{% if harbor_ui_url_protocol == 'http' %}{{harbor_exposed_http_port}}{% else %}{{harbor_exposed_https_port}}{% endif %}"
 # If you are running Harbor behind your own proxy, override this as it might not match with Harbor.cfg values.
 harbor_api_url: "{{ harbor_ui_url_protocol }}://{{ harbor_hostname }}:{{ harbor_api_port }}/api"
