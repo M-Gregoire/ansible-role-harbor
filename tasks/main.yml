@@ -13,6 +13,7 @@
       - docker
       - pyyaml>=3.11
       - docker-compose>=1.7.0
+    executable: pip3
 
 - name: Checking if Harbor is already installed
   stat:
