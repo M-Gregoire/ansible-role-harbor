@@ -1,3 +1,10 @@
+- name: Install docker
+  apt:
+    name:
+      - python3
+      - docker.io
+    state: present
+
 - name: Installing docker python bindings
   become: true
   pip:
