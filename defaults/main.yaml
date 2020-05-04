@@ -1,8 +1,6 @@
 ---
-harbor_release: 1.7.0
-harbor_version: 1.7.4
-harbor_url: "https://storage.googleapis.com/harbor-releases/release-{{ harbor_release }}/harbor-offline-installer-v{{ harbor_version }}.tgz"
-
+harbor_release: "v2.0.0-rc2"
+harbor_url: "https://github.com/goharbor/harbor/releases/download/{{ harbor_release }}/harbor-offline-installer-{{ harbor_release }}.tgz"
 
 harbor_installer_extra_args:
 harbor_extras:
