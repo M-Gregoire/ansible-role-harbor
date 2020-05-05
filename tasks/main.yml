@@ -42,25 +42,10 @@
   when:
     - not harbor_folder_st.stat.exists or (harbor_folder_st.stat.isdir is defined and not harbor_folder_st.stat.isdir)
 
-- name: Copying over harbor.cfg
+- name: Copying over harbor.yml
   template:
-    src: harbor.cfg.j2
-    dest: "{{ harbor_install_dir }}/harbor/harbor.cfg"
-  when:
-    - not harbor_folder_st.stat.exists or (harbor_folder_st.stat.isdir is defined and not harbor_folder_st.stat.isdir)
-
-- name: Copying over docker-compose.yml
-  template:
-    src: docker-compose.yml.j2
-    dest: "{{ harbor_install_dir }}/harbor/docker-compose.yml"
-  when:
-    - not harbor_folder_st.stat.exists or (harbor_folder_st.stat.isdir is defined and not harbor_folder_st.stat.isdir)
-
-- name: Copying over prepare script
-  template:
-    src: prepare.j2
-    dest: "{{ harbor_install_dir }}/harbor/prepare"
-    mode: a+x
+    src: harbor.yml.j2
+    dest: "{{ harbor_install_dir }}/harbor/harbor.yml"
   when:
     - not harbor_folder_st.stat.exists or (harbor_folder_st.stat.isdir is defined and not harbor_folder_st.stat.isdir)
 
