@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   role_name: harbor
-  author: "Nicholas Amorim"
+  author: "Nicholas Amorim, Grégoire Martinache"
   description: Installs, Configures and Manages Harbor (docker)
   github_branch: master
   company:

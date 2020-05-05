@@ -1,6 +1,6 @@
 # Ansible Role: Harbor
 
-An Ansible Role that installs [Harbor](https://github.com/goharbor/harbor) on Linux.
+An Ansible Role that installs the pre-release of [Harbor 2.0](https://github.com/goharbor/harbor) on Linux.
 
 This role is in alpha stage. Issues and PRs are welcome.
 
@@ -32,9 +32,6 @@ If you want to change the exposed ports of Harbor's NGINX from the defaults of 8
 harbor_exposed_http_port: 81
 harbor_exposed_https_port: 444
 ```
-
-If you are running Harbor behind a proxy, set `harbor_behind_proxy: yes`. This will comment the necessary lines in Harbor's Nginx to make it work as per their [troubleshooting](https://github.com/vmware/harbor/blob/master/docs/installation_guide.md#troubleshooting) section.
-
 To install with extras set:
 
 ```yaml
@@ -112,43 +109,8 @@ None.
 
 After the playbook runs, you should be able to navigate to your host on port 80/443 and see Harbor's UI. You can login with `admin/Harbor12345`. If you changed the exposed ports, remember to use them instead of 80/443.
 
-### Running Harbor behind your proxy
 
-A common setup is to run Harbor behind a proxy where the proxy is responsible for SSL termination. Harbor can pretty fiddly with that as it has its own Nginx inside and things can get confusing because
-
-a) Harbor has its own Nginx proxy, that must run as `http`
-b) However, certain lines must be commented out in harbor's nginx if you use a proxy.
-c) The realm URL must also be changed to what's externally visible: `https`.
-
-Here's an example of the variables that have to bet set in such scenario:
-
-```yaml
-harbor_hostname: "myharbor.company.com"
-harbor_api_url: "https://myharbor.company.com/api"
-harbor_behind_proxy: yes
-# Internally, Harbor is still running on http
-harbor_ui_url_protocol: "http"
-harbor_customize_crt: "off"
-harbor_registry_realm_protocol: "https"
-# Running Harbor's nginx in different ports not to conflict with 80/443
-harbor_exposed_http_port: 8798
-harbor_exposed_https_port: 8799
-harbor_extras:
-  - clair
-harbor_self_registration: "off"
-# This is useful if you already have a redis container running
-harbor_redis_host: redisharbor
-```
-
-This will ensure that:
-
-- Harbor's nginx gets [this line](https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md#troubleshooting) commented.      
-- The registry realm url is updated correctly.
-
-This is a bit convoluted but it's a compromise to try and not change Harbor's files/templates too much as this will incur frequent breakage. I'm open to suggestions on how to improve, though.
-
-
-## Managing state 
+## Managing state
 
 For convenience, this role includes tasks to stop, start and restart the registry using docker-compose.
 
@@ -174,4 +136,4 @@ If you are running the playbook again to ensure the list of users but you have a
 
 ## Author Information
 
-This role was created in 2019 by [Nicholas Amorim](https://github.com/nicholasamorim).
+This role was created in 2019 by [Nicholas Amorim](https://github.com/nicholasamorim) and updated for Harbor 2.0 by [Grégoire Martinache](https://github.com/M-Gregoire/).
