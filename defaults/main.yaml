@@ -11,7 +11,7 @@ harbor_extras:
 harbor_install_dir: /opt
 # This is related to the internal Nginx. If you are running it behind a proxy that terminates
 # SSL, leave this on http. You will want to set `harbor_registry_realm_protocol` to "https", though.
-harbor_ui_url_protocol: "http"
+harbor_ui_url_protocol: "https"
 harbor_max_job_workers: 10
 harbor_port: 80
 
