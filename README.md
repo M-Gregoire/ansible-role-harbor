@@ -4,15 +4,11 @@ An Ansible Role that installs the pre-release of [Harbor 2.0](https://github.com
 
 This role is in alpha stage. Issues and PRs are welcome.
 
-## Requirements
-
-None.
-
 ## Role Variables
 
-For a complete list see `defaults/main.yaml`.
+Every variable as a default value expect for `harbor_hostname` which as to be specified in your playbook.
 
-By default, the role uses the IP of the current host to set `harbor_hostname`. You can override it.
+For a complete list or to modify default values, see `defaults/main.yaml`.
 
 To change the install dir:
 
@@ -32,20 +28,13 @@ If you want to change the exposed ports of Harbor's NGINX from the defaults of 8
 harbor_exposed_http_port: 81
 harbor_exposed_https_port: 444
 ```
+
 To install with extras set:
 
 ```yaml
 harbor_extras:
     - clair
     - notary
-```
-
-If you already have a Redis set-up, you might want to change the default redis hostname and port of Harbor:
-
-```yaml
-# change these if you have your own redis running already
-harbor_redis_host: redis
-harbor_redis_port: 6379
 ```
 
 You can also pass extra arguments to the installer with `harbor_installer_extra_args` (a string).
@@ -62,13 +51,11 @@ harbor_projects:
     auto_scan: "true"
 ```
 
-
-By default, users can self-register. If you prefer to create users automatically, you _must_ disable self-registration and set a list of users. Those users will be created automatically. The password defaults to "HarborUser12345".
+You can create users automatically during harbor installation. The password defaults to "HarborUser12345".
 
 This operation is idempotent.
 
 ```yaml
-harbor_self_registration: "off"
 harbor_users:
     - username: user1
       email: user1@test.com
@@ -78,10 +65,6 @@ harbor_users:
       has_admin_role: true
 ```
 
-## Dependencies
-
-None.
-
 ## Example Playbook
 
 ```yaml
@@ -89,6 +72,7 @@ None.
 - name: Installing and configuring Harbor
   hosts: registry
   vars:
+    harbor_hostname: my.domain.com
     harbor_projects:
       - project_name: myproject
         is_public: "false"
@@ -107,7 +91,7 @@ None.
     - harbor
 ```
 
-After the playbook runs, you should be able to navigate to your host on port 80/443 and see Harbor's UI. You can login with `admin/Harbor12345`. If you changed the exposed ports, remember to use them instead of 80/443.
+After the playbook runs, you should be able to navigate `https://my.domain.com` and see Harbor's UI. You can login with `admin/Harbor12345`.
 
 
 ## Managing state

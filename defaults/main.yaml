@@ -36,7 +36,6 @@ harbor_install: true
 harbor_redis_host: redis
 
 # If you have Harbor running on say "myregistry.company.com", that's what you should have as harbor_hostname
-harbor_hostname: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 harbor_datadir: "/harbor/data"
 
 harbor_ssl_cert: "{{ harbor_datadir }}/cert/server.crt"
