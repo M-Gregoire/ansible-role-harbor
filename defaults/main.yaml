@@ -3,9 +3,12 @@ harbor_release: "v2.0.0-rc2"
 harbor_url: "https://github.com/goharbor/harbor/releases/download/{{ harbor_release }}/harbor-offline-installer-{{ harbor_release }}.tgz"
 
 harbor_installer_extra_args:
-harbor_extras:
-  # - clair
-  # - notary
+harbor_extras: []
+# To install extras, change harbor_extras: []
+# To
+#harbor_extras:
+#   - clair
+#   - notary
 
 # Will create harbor folder inside
 harbor_install_dir: /opt
